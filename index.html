@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIGMA → MIGROSS | Camposanto</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#171717;background:#f5f5f5}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#f8f8f8,#e9e9e9)}
+.card{width:min(760px,100%);background:#fff;border-radius:28px;padding:42px 24px;text-align:center;box-shadow:0 12px 45px rgba(0,0,0,.12)}
+.kicker{font-size:14px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#666}
+h1{font-size:clamp(42px,10vw,76px);margin:16px 0 4px;line-height:.95}
+.arrow{font-size:30px;color:#777;margin:8px 0}
+h2{font-size:clamp(42px,10vw,76px);margin:4px 0;line-height:.95}
+.subtitle{font-size:clamp(18px,4vw,25px);font-weight:700;margin:26px 0 8px}
+.date{font-size:18px;color:#555;margin-bottom:28px}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.unit{background:#f1f1f1;border-radius:18px;padding:18px 7px}
+.num{font-size:clamp(30px,7vw,55px);font-weight:800;font-variant-numeric:tabular-nums}
+.label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#666;margin-top:7px}
+.place{margin-top:28px;font-size:18px;font-weight:700}
+.note{margin-top:12px;color:#666}
+@media(max-width:480px){.card{padding:30px 12px}.timer{gap:6px}.unit{padding:14px 3px}.label{font-size:10px}}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="kicker">Il conto alla rovescia è iniziato</div>
+  <h1>SIGMA</h1>
+  <div class="arrow">↓</div>
+  <h2>MIGROSS</h2>
+  <div class="subtitle">IL GRANDE CAMBIAMENTO STA ARRIVANDO</div>
+  <div class="date">22 OTTOBRE 2026 · ORE 9:00</div>
+  <section class="timer" aria-label="Countdown">
+    <div class="unit"><div class="num" id="days">--</div><div class="label">Giorni</div></div>
+    <div class="unit"><div class="num" id="hours">--</div><div class="label">Ore</div></div>
+    <div class="unit"><div class="num" id="minutes">--</div><div class="label">Minuti</div></div>
+    <div class="unit"><div class="num" id="seconds">--</div><div class="label">Secondi</div></div>
+  </section>
+  <div class="place">CAMPOSANTO</div>
+  <div class="note" id="status">Ci siamo quasi…</div>
+</main>
+<script>
+const target = new Date("2026-10-22T09:00:00+02:00").getTime();
+const $=id=>document.getElementById(id);
+function tick(){
+  let x=target-Date.now();
+  if(x<=0){
+    ["days","hours","minutes","seconds"].forEach(id=>$(id).textContent="00");
+    $("status").textContent="È arrivato il momento! 🎉";
+    return;
+  }
+  const days=Math.floor(x/86400000); x%=86400000;
+  const hours=Math.floor(x/3600000); x%=3600000;
+  const minutes=Math.floor(x/60000); x%=60000;
+  const seconds=Math.floor(x/1000);
+  $("days").textContent=days;
+  $("hours").textContent=String(hours).padStart(2,"0");
+  $("minutes").textContent=String(minutes).padStart(2,"0");
+  $("seconds").textContent=String(seconds).padStart(2,"0");
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
